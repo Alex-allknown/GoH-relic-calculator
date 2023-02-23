@@ -22,4 +22,5 @@ function calculateRelicParts(selectedValues, maxValues) {
     relicParts[material] = maxRelicData[material] - selectedRelicData[material];
   }
 console.log(relicParts)
+return 
 }
