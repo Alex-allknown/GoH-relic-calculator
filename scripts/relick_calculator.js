@@ -1,3 +1,4 @@
+
 function calculateRelicParts(selectedValues, maxValues) {
   const relicData = {
     R0: { H1: 0, H2: 0, H3: 0, H4: 0, H5: 0, H6: 0, H7: 0, H8: 0, H9: 0, C1: 0, C2: 0, C3: 0},
@@ -22,4 +23,60 @@ function calculateRelicParts(selectedValues, maxValues) {
     relicParts[material] = maxRelicData[material] - selectedRelicData[material];
   }
 console.log(relicParts)
+relicSum(relicParts)
+}
+
+function relicSum(relicParts) {
+  let sum = { 
+    H1: 0, H2: 0, H3: 0, H4: 0, H5: 0, H6: 0, H7: 0, H8: 0, H9: 0, 
+    C1: 0, C2: 0, C3: 0 
+  };
+  
+  for (let material in relicParts) {
+    if (relicParts.hasOwnProperty(material) && sum.hasOwnProperty(material)) {
+      sum[material] += relicParts[material];
+    }
+  }
+  console.log(sum);
+relick_results(sum)
+}
+
+
+function relick_results(sum){
+  const resultContainer = document.getElementById("relic-parts");
+  resultContainer.innerHTML = "";
+  // Проходимся по всем деталям реликвии
+  for (const material in sum) {
+    // Создаем элементы для изображения и количества деталей
+    const materialContainer = document.createElement("div");
+    const materialImages = {
+      H1: 'images/Gear-Carbonite_Circuit_Board.png',
+      H2: 'images/Gear-Bronzium_Wiring.png',
+      H3: 'images/Gear-Chromium_Transistor.png',
+      H4: 'images/Gear-Aurodium_Heatsink.png',
+      H5: 'images/Gear-Electrium_Conductor.png',
+      H6: 'images/Game-Icon-Zinbiddle_Card.png',
+      H7: 'images/Game-Icon-Impulse_Detector.png',
+      H8: 'images/Game-Icon-Gyrda_Keypad.png',
+      H9: 'images/Game-Icon-Droid_Brain.png',
+      C1: 'images/tex.scavenger_data01.png',
+      C2: 'images/tex.scavenger_data02.png',
+      C3: 'images/tex.scavenger_data03.png',
+    };
+    
+    const materialImage = document.createElement("img");
+    const materialCount = document.createElement("p");
+
+    // Устанавливаем атрибуты изображения
+    materialImage.src = materialImages[material];
+    materialImage.alt = material;
+
+    // Устанавливаем текст для количества деталей
+    materialCount.textContent = `${sum[material]} pieces`;
+
+    // Добавляем изображение и количество деталей в контейнер
+    materialContainer.appendChild(materialImage);
+    materialContainer.appendChild(materialCount);
+    resultContainer.appendChild(materialContainer);
+  }
 }
